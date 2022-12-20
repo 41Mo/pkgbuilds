@@ -1,6 +1,6 @@
 # Maintainer: acxz <akashpatel2008 at yahoo dot com>
 pkgname=airsim
-pkgver=1.7.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc="Open source simulator for autonomous vehicles built on Unreal Engine /
 Unity, from Microsoft AI & Research"
@@ -10,24 +10,24 @@ license=('MIT')
 depends=(unreal-engine rpclib eigen)
 makedepends=(cmake gcc)
 _pkgname=AirSim
-source=("${pkgname}-${pkgver}::https://github.com/microsoft/AirSim/archive/v$pkgver-linux.tar.gz"
+source=("${pkgname}-${pkgver}::https://github.com/microsoft/AirSim/archive/refs/tags/v${pkgver}.tar.gz"
         "CMakeLists.patch")
-sha256sums=("77d9b9eb771883222bedd611fe52ccbef074bbb8f5fd91fd2b55388ea10647a8"
-            "6128b8042c5394cfea443e06da3fad1ce63da84082f1f6a027906026987dfe9c")
+sha256sums=("92cebb9350d1364fdeacc84660ea2250c7ef500a2971925a0c9cd5065d07496b"
+            "15fa367328cc241ee73cdf5fb139d31e8c4ac4f3c8151b60c123d8170c4e041a")
 
 prepare() {
     patch -s -p0 < CMakeLists.patch
 }
 
 build() {
-  mkdir -p "$srcdir/${_pkgname}-${pkgver}-linux/cmake/build"
-  cd "$srcdir/${_pkgname}-${pkgver}-linux/cmake/build"
+  mkdir -p "$srcdir/${_pkgname}-${pkgver}/cmake/build"
+  cd "$srcdir/${_pkgname}-${pkgver}/cmake/build"
   cmake -DCMAKE_INSTALL_PREFIX="$pkgdir/opt" ..
   make
 }
 
 package() {
-  cd "$srcdir/${_pkgname}-${pkgver}-linux/cmake/build"
+  cd "$srcdir/${_pkgname}-${pkgver}/cmake/build"
 
   msg "Installing files"
 
